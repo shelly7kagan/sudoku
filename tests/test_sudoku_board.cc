@@ -154,6 +154,54 @@ void TestSudokuBoard::test_get_status(){
                                                                 std::vector<int>({8, 1, 6, 3, 4, 9, 7, 2, 4})});
 }
 
+void TestSudokuBoard::test_update_possible_options(){
+    SudokuBoard test_board(9);
+    std::vector<std::vector<std::set<int>>> expected_options = 
+        std::vector<std::vector<std::set<int>>>(test_board.get_possible_options());
+    
+    test_board.update_cell_value(3, 3, 1);
+    for (int i = 0; i < test_board.get_size(); i++){
+        expected_options[3][i].erase(1);
+    }
+    for (int i = 0; i < test_board.get_size(); i++){
+        expected_options[i][3].erase(1);
+    }
+    for (int i = 3; i < 6; i++){
+        for (int j = 3; j < 6; j++){
+            expected_options[i][j].erase(1);
+        }
+    }
+    assert(test_board.get_possible_options() == expected_options);
+
+    test_board.update_cell_value(4, 5, 2);
+    for (int i = 0; i < test_board.get_size(); i++){
+        expected_options[4][i].erase(2);
+    }
+    for (int i = 0; i < test_board.get_size(); i++){
+        expected_options[i][5].erase(2);
+    }
+    for (int i = 3; i < 6; i++){
+        for (int j = 3; j < 6; j++){
+            expected_options[i][j].erase(2);
+        }
+    }
+    assert(test_board.get_possible_options() == expected_options);
+
+    std::set<int>empty_test_expected_options({});
+    test_board.update_cell_value(3, 4, 3);
+    test_board.update_cell_value(3, 5, 4);
+    test_board.update_cell_value(4, 3, 5);
+    test_board.update_cell_value(4, 4, 6);
+    test_board.update_cell_value(5, 3, 7);
+    test_board.update_cell_value(5, 4, 8);
+    test_board.update_cell_value(5, 5, 9);
+    for (int i = 3; i < 6; i++){
+        for (int j = 3; j < 6; j++){
+            assert(test_board.get_cell_options(i, j) == empty_test_expected_options);
+        }
+    }
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -164,6 +212,7 @@ int main(int argc, char const *argv[])
     TestSudokuBoard::test_get_values_in_col();
     TestSudokuBoard::test_get_forbidden_values();
     TestSudokuBoard::test_get_status();
+    TestSudokuBoard::test_update_possible_options();
     std::cout << "PASSED ALL TESTS" << std::endl;
     return 0;
 }

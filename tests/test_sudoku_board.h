@@ -14,6 +14,7 @@ public:
     static void test_get_values_in_col();
     static void test_get_forbidden_values();
     static void test_get_status();
+    static void test_update_possible_options();
 
 private:
     static void print_int_set(std::set<int> input);
