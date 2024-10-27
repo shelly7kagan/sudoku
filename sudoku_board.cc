@@ -68,6 +68,7 @@ void SudokuBoard::set_cell_options(int r, int c, std::set<int> cell_options){
     m_possible_options[r][c] = cell_options;
 }
 
+// todo: add a check to see if the value is in the possible options for this cell
 void SudokuBoard::update_cell_value(int r, int c, int val){
     m_board_values[r][c] = val;
     update_possible_options();
