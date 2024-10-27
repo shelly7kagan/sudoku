@@ -18,6 +18,8 @@ private:
     std::set<int> get_values_in_row(int r, int c);
     std::set<int> get_values_in_col(int r, int c);
     std::set<int> get_forbidden_values(int r, int c);
+    void update_cell_possible_options(int r, int c);
+    void set_cell_options(int r, int c, std::set<int> cell_options);
     void empty_options();
 public:
     const int EMPTY_CELL_SIGN = 0;

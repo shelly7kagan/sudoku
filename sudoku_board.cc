@@ -64,13 +64,21 @@ std::set<int> SudokuBoard::get_cell_options(int r, int c){
     return m_possible_options[r][c];
 }
 
+void SudokuBoard::set_cell_options(int r, int c, std::set<int> cell_options){
+    m_possible_options[r][c] = cell_options;
+}
+
 void SudokuBoard::update_cell_value(int r, int c, int val){
     m_board_values[r][c] = val;
     update_possible_options();
 }
 
 void SudokuBoard::update_possible_options(){
-
+    for (int i = 0; i < m_size; i++){
+        for (int j = 0; j < m_size; j++){
+            update_cell_possible_options(i, j);
+        }
+    }
 }
 
 // int main(int argc, char const *argv[])
@@ -80,6 +88,16 @@ void SudokuBoard::update_possible_options(){
 // }
 
 // ------------------------------- private methods ---------------------------------
+
+void SudokuBoard::update_cell_possible_options(int r, int c){
+    std::set<int> current_forbidden_values = get_forbidden_values(r, c);
+    std::set<int> old_possible_options = get_cell_options(r, c);
+    std::set<int> new_possible_options({});
+    std::set_difference(old_possible_options.begin(), old_possible_options.end(),
+                        current_forbidden_values.begin(), current_forbidden_values.end(),
+                        inserter(new_possible_options, new_possible_options.begin()));
+    set_cell_options(r, c, new_possible_options);
+}
 
 std::set<int> SudokuBoard::get_values_in_cube(int r, int c){
     std::set<int> values_in_cube{};
