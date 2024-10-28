@@ -30,8 +30,8 @@ public:
   SudokuBoard(int size, std::vector<std::vector<int>> board_values);
   int get_size() const;
   const std::vector<std::vector<int>> &get_board_values() const;
-  const std::vector<std::vector<std::set<int>>>& get_possible_options() const;
-  const std::set<int>& get_cell_options(int r, int c) const;
+  const std::vector<std::vector<std::set<int>>> &get_possible_options() const;
+  const std::set<int> &get_cell_options(int r, int c) const;
   STATUS_OPTION get_status() const;
   STATUS_OPTION get_cell_status(int r, int c) const;
   void update_cell_value(int r, int c, int val);

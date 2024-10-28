@@ -22,8 +22,7 @@ SudokuBoard::SudokuBoard(int size, std::vector<std::vector<int>> board_values)
 
 int SudokuBoard::get_size() const { return m_size; }
 
-// question: do I need to return a copy and not the original one?
-const std::vector<std::vector<int>> & SudokuBoard::get_board_values() const {
+const std::vector<std::vector<int>> &SudokuBoard::get_board_values() const {
   return m_board_values;
 }
 
@@ -61,7 +60,7 @@ STATUS_OPTION SudokuBoard::get_cell_status(int r, int c) const {
   return PROG;
 }
 
-const std::set<int> & SudokuBoard::get_cell_options(int r, int c) const {
+const std::set<int> &SudokuBoard::get_cell_options(int r, int c) const {
   return m_possible_options[r][c];
 }
 
@@ -137,9 +136,4 @@ std::set<int> SudokuBoard::get_forbidden_values(int r, int c) {
   forbidden_values.merge(get_forbbiden_values_in_col(r, c));
   forbidden_values.merge(get_forbidden_values_in_cube(r, c));
   return forbidden_values;
-}
-
-void SudokuBoard::empty_options() {
-  m_possible_options =
-      std::vector(m_size, std::vector(m_size, std::set<int>({})));
 }
