@@ -2,7 +2,8 @@
 #include "sudoku_board.h"
 
 // ------------------------------- public methods ----------------------------
-const std::set<int> SudokuBoard::POSSIBLE_CELL_VALUES = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+const std::set<int> SudokuBoard::POSSIBLE_CELL_VALUES = {1, 2, 3, 4, 5,
+                                                         6, 7, 8, 9};
 const int SudokuBoard::EMPTY_CELL_SIGN = 0;
 const int SudokuBoard::CUBE_SIZE = 3;
 
@@ -22,11 +23,12 @@ SudokuBoard::SudokuBoard(int size, std::vector<std::vector<int>> board_values)
 int SudokuBoard::get_size() const { return m_size; }
 
 // question: do I need to return a copy and not the original one?
-std::vector<std::vector<int>> SudokuBoard::get_board_values() const {
+const std::vector<std::vector<int>> & SudokuBoard::get_board_values() const {
   return m_board_values;
 }
 
-std::vector<std::vector<std::set<int>>> SudokuBoard::get_possible_options() const {
+const std::vector<std::vector<std::set<int>>> &
+SudokuBoard::get_possible_options() const {
   return m_possible_options;
 }
 
@@ -59,7 +61,7 @@ STATUS_OPTION SudokuBoard::get_cell_status(int r, int c) const {
   return PROG;
 }
 
-std::set<int> SudokuBoard::get_cell_options(int r, int c) const {
+const std::set<int> & SudokuBoard::get_cell_options(int r, int c) const {
   return m_possible_options[r][c];
 }
 
@@ -101,7 +103,7 @@ void SudokuBoard::update_cell_possible_options(int r, int c) {
   set_cell_options(r, c, new_possible_options);
 }
 
-std::set<int> SudokuBoard::get_values_in_cube(int r, int c) {
+std::set<int> SudokuBoard::get_forbidden_values_in_cube(int r, int c) {
   std::set<int> values_in_cube{};
   int cube_top_r = r - (r % CUBE_SIZE);
   int cube_left_c = c - (c % CUBE_SIZE);
@@ -114,14 +116,14 @@ std::set<int> SudokuBoard::get_values_in_cube(int r, int c) {
   return values_in_cube;
 }
 
-std::set<int> SudokuBoard::get_values_in_row(int r, int c) {
+std::set<int> SudokuBoard::get_forbidden_values_in_row(int r, int c) {
   std::set<int> values_in_row(m_board_values[r].begin(),
                               m_board_values[r].end());
   values_in_row.erase(EMPTY_CELL_SIGN);
   return values_in_row;
 }
 
-std::set<int> SudokuBoard::get_values_in_col(int r, int c) {
+std::set<int> SudokuBoard::get_forbbiden_values_in_col(int r, int c) {
   std::set<int> values_in_col{};
   for (int i = 0; i < m_size; i++) {
     values_in_col.insert(m_board_values[i][c]);
@@ -131,9 +133,9 @@ std::set<int> SudokuBoard::get_values_in_col(int r, int c) {
 }
 
 std::set<int> SudokuBoard::get_forbidden_values(int r, int c) {
-  std::set<int> forbidden_values = get_values_in_row(r, c);
-  forbidden_values.merge(get_values_in_col(r, c));
-  forbidden_values.merge(get_values_in_cube(r, c));
+  std::set<int> forbidden_values = get_forbidden_values_in_row(r, c);
+  forbidden_values.merge(get_forbbiden_values_in_col(r, c));
+  forbidden_values.merge(get_forbidden_values_in_cube(r, c));
   return forbidden_values;
 }
 
