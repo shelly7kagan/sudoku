@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include "../sudoku_board.h"
 #include <cassert>
 #include <iostream>
