@@ -25,7 +25,7 @@ public:
   const std::set<int> &get_cell_options(size_t r, size_t c) const;
   STATUS_OPTION calc_status() const;
   STATUS_OPTION calc_cell_status(size_t r, size_t c) const;
-  void update_cell_value(size_t r, size_t c, int val);
+  void set_cell_value(size_t r, size_t c, int val);
   void update_possible_options();
 
   friend class TestSudokuBoard;

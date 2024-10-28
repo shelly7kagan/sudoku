@@ -13,6 +13,7 @@ SudokuBoard::SudokuBoard(size_t size)
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {}
 
+// todo: add a check if the given array is in a proper size
 SudokuBoard::SudokuBoard(size_t size,
                          std::vector<std::vector<int>> board_values)
     : m_size(size), m_board_values(board_values),
@@ -72,7 +73,7 @@ void SudokuBoard::set_cell_options(size_t r, size_t c,
 
 // todo: add a check to see if the value is in the possible options for this
 // cell
-void SudokuBoard::update_cell_value(size_t r, size_t c, int val) {
+void SudokuBoard::set_cell_value(size_t r, size_t c, int val) {
   m_board_values[r][c] = val;
   update_possible_options();
 }
