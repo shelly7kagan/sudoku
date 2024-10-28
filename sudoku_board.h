@@ -7,6 +7,9 @@
 
 enum STATUS_OPTION { WIN, LOSE, PROG };
 
+/**
+ *
+ */
 class SudokuBoard {
 
 public:
@@ -19,10 +22,10 @@ public:
   size_t get_size() const;
   const std::vector<std::vector<int>> &get_board_values() const;
   const std::vector<std::vector<std::set<int>>> &get_possible_options() const;
-  const std::set<int> &get_cell_options(int r, int c) const;
+  const std::set<int> &get_cell_options(size_t r, size_t c) const;
   STATUS_OPTION get_status() const;
-  STATUS_OPTION get_cell_status(int r, int c) const;
-  void update_cell_value(int r, int c, int val);
+  STATUS_OPTION get_cell_status(size_t r, size_t c) const;
+  void update_cell_value(size_t r, size_t c, int val);
   void update_possible_options();
 
   friend class TestSudokuBoard;
@@ -32,11 +35,11 @@ private:
   std::vector<std::vector<int>> m_board_values;
   std::vector<std::vector<std::set<int>>> m_possible_options;
 
-  std::set<int> get_forbidden_values_in_cube(int r, int c);
-  std::set<int> get_forbidden_values_in_row(int r, int c);
-  std::set<int> get_forbbiden_values_in_col(int r, int c);
-  std::set<int> get_forbidden_values(int r, int c);
-  void update_cell_possible_options(int r, int c);
-  void set_cell_options(int r, int c, std::set<int> cell_options);
+  std::set<int> get_forbidden_values_in_cube(size_t r, size_t c);
+  std::set<int> get_forbidden_values_in_row(size_t r, size_t c);
+  std::set<int> get_forbbiden_values_in_col(size_t r, size_t c);
+  std::set<int> get_forbidden_values(size_t r, size_t c);
+  void update_cell_possible_options(size_t r, size_t c);
+  void set_cell_options(size_t r, size_t c, std::set<int> cell_options);
   void empty_options();
 };

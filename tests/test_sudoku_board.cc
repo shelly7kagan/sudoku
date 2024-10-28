@@ -2,8 +2,8 @@
 
 void TestSudokuBoard::print_board_values() {
   SudokuBoard test_board(9);
-  for (int i = 0; i < test_board.get_size(); i++) {
-    for (int j = 0; j < test_board.get_size(); j++) {
+  for (size_t i = 0; i < test_board.get_size(); i++) {
+    for (size_t j = 0; j < test_board.get_size(); j++) {
       std::cout << test_board.get_board_values()[i][j] << " ";
     }
     std::cout << std::endl;
@@ -15,8 +15,8 @@ void TestSudokuBoard::print_possible_options() {
   SudokuBoard test_board(9);
   int board_size = test_board.get_size();
 
-  for (int i = 0; i < board_size; i++) {
-    for (int j = 0; j < board_size; j++) {
+  for (size_t i = 0; i < board_size; i++) {
+    for (size_t j = 0; j < board_size; j++) {
       std::set<int> possible_options = test_board.get_possible_options()[i][j];
       for (auto possible_option : possible_options) {
         std::cout << possible_option << " ";
@@ -161,28 +161,28 @@ void TestSudokuBoard::test_update_possible_options() {
           test_board.get_possible_options());
 
   test_board.update_cell_value(3, 3, 1);
-  for (int i = 0; i < test_board.get_size(); i++) {
+  for (size_t i = 0; i < test_board.get_size(); i++) {
     expected_options[3][i].erase(1);
   }
-  for (int i = 0; i < test_board.get_size(); i++) {
+  for (size_t i = 0; i < test_board.get_size(); i++) {
     expected_options[i][3].erase(1);
   }
-  for (int i = 3; i < 6; i++) {
-    for (int j = 3; j < 6; j++) {
+  for (size_t i = 3; i < 6; i++) {
+    for (size_t j = 3; j < 6; j++) {
       expected_options[i][j].erase(1);
     }
   }
   assert(test_board.get_possible_options() == expected_options);
 
   test_board.update_cell_value(4, 5, 2);
-  for (int i = 0; i < test_board.get_size(); i++) {
+  for (size_t i = 0; i < test_board.get_size(); i++) {
     expected_options[4][i].erase(2);
   }
-  for (int i = 0; i < test_board.get_size(); i++) {
+  for (size_t i = 0; i < test_board.get_size(); i++) {
     expected_options[i][5].erase(2);
   }
-  for (int i = 3; i < 6; i++) {
-    for (int j = 3; j < 6; j++) {
+  for (size_t i = 3; i < 6; i++) {
+    for (size_t j = 3; j < 6; j++) {
       expected_options[i][j].erase(2);
     }
   }
@@ -196,8 +196,8 @@ void TestSudokuBoard::test_update_possible_options() {
   test_board.update_cell_value(5, 3, 7);
   test_board.update_cell_value(5, 4, 8);
   test_board.update_cell_value(5, 5, 9);
-  for (int i = 3; i < 6; i++) {
-    for (int j = 3; j < 6; j++) {
+  for (size_t i = 3; i < 6; i++) {
+    for (size_t j = 3; j < 6; j++) {
       assert(test_board.get_cell_options(i, j) == empty_test_expected_options);
     }
   }

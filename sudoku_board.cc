@@ -13,7 +13,8 @@ SudokuBoard::SudokuBoard(size_t size)
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {}
 
-SudokuBoard::SudokuBoard(size_t size, std::vector<std::vector<int>> board_values)
+SudokuBoard::SudokuBoard(size_t size,
+                         std::vector<std::vector<int>> board_values)
     : m_size(size), m_board_values(board_values),
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {
@@ -49,7 +50,7 @@ STATUS_OPTION SudokuBoard::get_status() const {
   return PROG;
 }
 
-STATUS_OPTION SudokuBoard::get_cell_status(int r, int c) const {
+STATUS_OPTION SudokuBoard::get_cell_status(size_t r, size_t c) const {
   if (get_cell_options(r, c).empty()) {
     if (get_board_values()[r][c] == EMPTY_CELL_SIGN) {
       return LOSE;
@@ -60,17 +61,18 @@ STATUS_OPTION SudokuBoard::get_cell_status(int r, int c) const {
   return PROG;
 }
 
-const std::set<int> &SudokuBoard::get_cell_options(int r, int c) const {
+const std::set<int> &SudokuBoard::get_cell_options(size_t r, size_t c) const {
   return m_possible_options[r][c];
 }
 
-void SudokuBoard::set_cell_options(int r, int c, std::set<int> cell_options) {
+void SudokuBoard::set_cell_options(size_t r, size_t c,
+                                   std::set<int> cell_options) {
   m_possible_options[r][c] = cell_options;
 }
 
 // todo: add a check to see if the value is in the possible options for this
 // cell
-void SudokuBoard::update_cell_value(int r, int c, int val) {
+void SudokuBoard::update_cell_value(size_t r, size_t c, int val) {
   m_board_values[r][c] = val;
   update_possible_options();
 }
@@ -88,10 +90,9 @@ void SudokuBoard::update_possible_options() {
 //     return 0;
 // }
 
-// ------------------------------- private methods
-// ---------------------------------
+// ------------------ private methods -------------------
 
-void SudokuBoard::update_cell_possible_options(int r, int c) {
+void SudokuBoard::update_cell_possible_options(size_t r, size_t c) {
   std::set<int> current_forbidden_values = get_forbidden_values(r, c);
   std::set<int> old_possible_options = get_cell_options(r, c);
   std::set<int> new_possible_options({});
@@ -102,7 +103,7 @@ void SudokuBoard::update_cell_possible_options(int r, int c) {
   set_cell_options(r, c, new_possible_options);
 }
 
-std::set<int> SudokuBoard::get_forbidden_values_in_cube(int r, int c) {
+std::set<int> SudokuBoard::get_forbidden_values_in_cube(size_t r, size_t c) {
   std::set<int> values_in_cube{};
   int cube_top_r = r - (r % CUBE_SIZE);
   int cube_left_c = c - (c % CUBE_SIZE);
@@ -115,14 +116,14 @@ std::set<int> SudokuBoard::get_forbidden_values_in_cube(int r, int c) {
   return values_in_cube;
 }
 
-std::set<int> SudokuBoard::get_forbidden_values_in_row(int r, int c) {
+std::set<int> SudokuBoard::get_forbidden_values_in_row(size_t r, size_t c) {
   std::set<int> values_in_row(m_board_values[r].begin(),
                               m_board_values[r].end());
   values_in_row.erase(EMPTY_CELL_SIGN);
   return values_in_row;
 }
 
-std::set<int> SudokuBoard::get_forbbiden_values_in_col(int r, int c) {
+std::set<int> SudokuBoard::get_forbbiden_values_in_col(size_t r, size_t c) {
   std::set<int> values_in_col{};
   for (size_t i = 0; i < m_size; i++) {
     values_in_col.insert(m_board_values[i][c]);
@@ -131,7 +132,7 @@ std::set<int> SudokuBoard::get_forbbiden_values_in_col(int r, int c) {
   return values_in_col;
 }
 
-std::set<int> SudokuBoard::get_forbidden_values(int r, int c) {
+std::set<int> SudokuBoard::get_forbidden_values(size_t r, size_t c) {
   std::set<int> forbidden_values = get_forbidden_values_in_row(r, c);
   forbidden_values.merge(get_forbbiden_values_in_col(r, c));
   forbidden_values.merge(get_forbidden_values_in_cube(r, c));
