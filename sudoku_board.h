@@ -11,12 +11,12 @@ class SudokuBoard {
 
 public:
   static const int EMPTY_CELL_SIGN;
-  static const int CUBE_SIZE;
+  static const size_t CUBE_SIZE;
   static const std::set<int> POSSIBLE_CELL_VALUES;
 
-  SudokuBoard(int size);
-  SudokuBoard(int size, std::vector<std::vector<int>> board_values);
-  int get_size() const;
+  SudokuBoard(size_t size);
+  SudokuBoard(size_t size, std::vector<std::vector<int>> board_values);
+  size_t get_size() const;
   const std::vector<std::vector<int>> &get_board_values() const;
   const std::vector<std::vector<std::set<int>>> &get_possible_options() const;
   const std::set<int> &get_cell_options(int r, int c) const;
@@ -28,7 +28,7 @@ public:
   friend class TestSudokuBoard;
 
 private:
-  const int m_size;
+  const size_t m_size;
   std::vector<std::vector<int>> m_board_values;
   std::vector<std::vector<std::set<int>>> m_possible_options;
 

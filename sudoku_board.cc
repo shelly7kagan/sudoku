@@ -5,22 +5,22 @@
 const std::set<int> SudokuBoard::POSSIBLE_CELL_VALUES = {1, 2, 3, 4, 5,
                                                          6, 7, 8, 9};
 const int SudokuBoard::EMPTY_CELL_SIGN = 0;
-const int SudokuBoard::CUBE_SIZE = 3;
+const size_t SudokuBoard::CUBE_SIZE = 3;
 
-SudokuBoard::SudokuBoard(int size)
+SudokuBoard::SudokuBoard(size_t size)
     : m_size(size),
       m_board_values(size, std::vector<int>(size, EMPTY_CELL_SIGN)),
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {}
 
-SudokuBoard::SudokuBoard(int size, std::vector<std::vector<int>> board_values)
+SudokuBoard::SudokuBoard(size_t size, std::vector<std::vector<int>> board_values)
     : m_size(size), m_board_values(board_values),
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {
   update_possible_options();
 }
 
-int SudokuBoard::get_size() const { return m_size; }
+size_t SudokuBoard::get_size() const { return m_size; }
 
 const std::vector<std::vector<int>> &SudokuBoard::get_board_values() const {
   return m_board_values;
@@ -33,8 +33,8 @@ SudokuBoard::get_possible_options() const {
 
 STATUS_OPTION SudokuBoard::get_status() const {
   bool is_win = true;
-  for (int i = 0; i < m_size; i++) {
-    for (int j = 0; j < m_size; j++) {
+  for (size_t i = 0; i < m_size; i++) {
+    for (size_t j = 0; j < m_size; j++) {
       STATUS_OPTION cell_status = get_cell_status(i, j);
       if (cell_status == LOSE) {
         return LOSE;
@@ -76,8 +76,8 @@ void SudokuBoard::update_cell_value(int r, int c, int val) {
 }
 
 void SudokuBoard::update_possible_options() {
-  for (int i = 0; i < m_size; i++) {
-    for (int j = 0; j < m_size; j++) {
+  for (size_t i = 0; i < m_size; i++) {
+    for (size_t j = 0; j < m_size; j++) {
       update_cell_possible_options(i, j);
     }
   }
@@ -106,8 +106,8 @@ std::set<int> SudokuBoard::get_forbidden_values_in_cube(int r, int c) {
   std::set<int> values_in_cube{};
   int cube_top_r = r - (r % CUBE_SIZE);
   int cube_left_c = c - (c % CUBE_SIZE);
-  for (int i = cube_top_r; i < cube_top_r + CUBE_SIZE; i++) {
-    for (int j = cube_left_c; j < cube_left_c + CUBE_SIZE; j++) {
+  for (size_t i = cube_top_r; i < cube_top_r + CUBE_SIZE; i++) {
+    for (size_t j = cube_left_c; j < cube_left_c + CUBE_SIZE; j++) {
       values_in_cube.insert(m_board_values[i][j]);
     }
   }
@@ -124,7 +124,7 @@ std::set<int> SudokuBoard::get_forbidden_values_in_row(int r, int c) {
 
 std::set<int> SudokuBoard::get_forbbiden_values_in_col(int r, int c) {
   std::set<int> values_in_col{};
-  for (int i = 0; i < m_size; i++) {
+  for (size_t i = 0; i < m_size; i++) {
     values_in_col.insert(m_board_values[i][c]);
   }
   values_in_col.erase(EMPTY_CELL_SIGN);
