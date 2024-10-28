@@ -23,8 +23,8 @@ public:
   const std::vector<std::vector<int>> &get_board_values() const;
   const std::vector<std::vector<std::set<int>>> &get_possible_options() const;
   const std::set<int> &get_cell_options(size_t r, size_t c) const;
-  STATUS_OPTION get_status() const;
-  STATUS_OPTION get_cell_status(size_t r, size_t c) const;
+  STATUS_OPTION calc_status() const;
+  STATUS_OPTION calc_cell_status(size_t r, size_t c) const;
   void update_cell_value(size_t r, size_t c, int val);
   void update_possible_options();
 

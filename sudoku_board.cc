@@ -32,11 +32,11 @@ SudokuBoard::get_possible_options() const {
   return m_possible_options;
 }
 
-STATUS_OPTION SudokuBoard::get_status() const {
+STATUS_OPTION SudokuBoard::calc_status() const {
   bool is_win = true;
   for (size_t i = 0; i < m_size; i++) {
     for (size_t j = 0; j < m_size; j++) {
-      STATUS_OPTION cell_status = get_cell_status(i, j);
+      STATUS_OPTION cell_status = calc_cell_status(i, j);
       if (cell_status == LOSE) {
         return LOSE;
       } else if (cell_status == PROG) {
@@ -50,7 +50,7 @@ STATUS_OPTION SudokuBoard::get_status() const {
   return PROG;
 }
 
-STATUS_OPTION SudokuBoard::get_cell_status(size_t r, size_t c) const {
+STATUS_OPTION SudokuBoard::calc_cell_status(size_t r, size_t c) const {
   if (get_cell_options(r, c).empty()) {
     if (get_board_values()[r][c] == EMPTY_CELL_SIGN) {
       return LOSE;
