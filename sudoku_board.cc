@@ -86,6 +86,22 @@ void SudokuBoard::update_possible_options() {
   }
 }
 
+std::set<int>::iterator SudokuBoard::erase_option(size_t guess_cell_r, size_t guess_cell_c, std::set<int>::iterator option_iter){
+  return m_possible_options[guess_cell_r][guess_cell_c].erase(option_iter);
+}
+
+/**
+ * a copy assignment which assumes that other is in the same size of this.
+ */
+// todo: do I need to add more functions? 
+SudokuBoard& SudokuBoard::operator=(const SudokuBoard& other){
+  if (this != &other){
+    m_possible_options = other.m_possible_options;
+    m_board_values = m_board_values;
+  }
+  return *this;
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     return 0;
