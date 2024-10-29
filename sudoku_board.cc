@@ -86,16 +86,27 @@ void SudokuBoard::update_possible_options() {
   }
 }
 
-std::set<int>::iterator SudokuBoard::erase_option(size_t guess_cell_r, size_t guess_cell_c, std::set<int>::iterator option_iter){
+const std::set<int>::iterator &
+SudokuBoard::erase_option(size_t guess_cell_r, size_t guess_cell_c,
+                          std::set<int>::iterator option_iter) {
   return m_possible_options[guess_cell_r][guess_cell_c].erase(option_iter);
+}
+
+size_t SudokuBoard::get_missing_cells_amount() const {
+  size_t missing_cells_amount = 0;
+  for (size_t i = 0; i < m_size; i++) {
+    missing_cells_amount += count(m_board_values[i].begin(),
+                                  m_board_values[i].end(), EMPTY_CELL_SIGN);
+  }
+  return missing_cells_amount;
 }
 
 /**
  * a copy assignment which assumes that other is in the same size of this.
  */
-// todo: do I need to add more functions? 
-SudokuBoard& SudokuBoard::operator=(const SudokuBoard& other){
-  if (this != &other){
+// todo: do I need to add more functions?
+SudokuBoard &SudokuBoard::operator=(const SudokuBoard &other) {
+  if (this != &other) {
     m_possible_options = other.m_possible_options;
     m_board_values = m_board_values;
   }

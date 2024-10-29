@@ -4,7 +4,7 @@
 
 class SudokuSolver {
 public:
-  static SudokuBoard &solve_board(SudokuBoard &board);
+  static void solve_board(SudokuBoard &board);
 
 private:
   static void solve_board_with_max_guesses(SudokuBoard &board,

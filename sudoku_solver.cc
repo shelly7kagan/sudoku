@@ -1,5 +1,9 @@
 #include "sudoku_solver.h"
 
+void SudokuSolver::solve_board(SudokuBoard &board){
+    solve_board_with_max_guesses(board, board.get_missing_cells_amount());
+}
+
 void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
                                                 int max_guess_amount) {
   if (board.calc_status() != PROG) {
