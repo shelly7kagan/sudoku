@@ -52,9 +52,7 @@ void TestSudokuSolver::test_solve_board() {
 
   SudokuBoard test_board(9, initial_board_values);
   SudokuBoard solved_board(9, final_board_values);
-  std::cout << "1" << std::endl;
   SudokuSolver::solve_board(test_board);
-  std::cout << "10" << std::endl;
   assert(test_board.get_board_values() == solved_board.get_board_values());
 }
 
