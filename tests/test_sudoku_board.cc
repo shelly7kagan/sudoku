@@ -136,7 +136,7 @@ void TestSudokuBoard::test_get_status() {
                    std::vector<int>({3, 7, 9, 2, 8, 5, 1, 4, 6}),
                    std::vector<int>({5, 2, 4, 1, 6, 7, 8, 3, 9}),
                    std::vector<int>({8, 1, 6, 3, 4, 9, 7, 2, 5})});
-  SudokuBoard win_test_board(9, win_values);
+  SudokuBoard win_test_board(win_values);
   assert(win_test_board.calc_status() == WIN);
 
   std::vector<std::vector<int>> lose_values = std::vector(
@@ -176,7 +176,7 @@ void TestSudokuBoard::test_get_status() {
             SudokuBoard::EMPTY_CELL_SIGN, SudokuBoard::EMPTY_CELL_SIGN, 8,
             SudokuBoard::EMPTY_CELL_SIGN, SudokuBoard::EMPTY_CELL_SIGN, 7,
             9})});
-  SudokuBoard lose_test_board(9, lose_values);
+  SudokuBoard lose_test_board(lose_values);
   assert(lose_test_board.calc_status() == LOSE);
 
   SudokuBoard prog_test_board(9);

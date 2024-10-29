@@ -50,8 +50,8 @@ void TestSudokuSolver::test_solve_board() {
        std::vector<int>({2, 8, 7, 4, 1, 9, 6, 3, 5}),
        std::vector<int>({3, 4, 5, 2, 8, 6, 1, 7, 9})});
 
-  SudokuBoard test_board(9, initial_board_values);
-  SudokuBoard solved_board(9, final_board_values);
+  SudokuBoard test_board(initial_board_values);
+  SudokuBoard solved_board(final_board_values);
   SudokuSolver::solve_board(test_board);
   assert(test_board.get_board_values() == solved_board.get_board_values());
 }

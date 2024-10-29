@@ -3,6 +3,8 @@
 #include <iostream>
 #include <memory>
 #include <set>
+#include <stdexcept>
+#include <string>
 #include <vector>
 
 /**
@@ -41,9 +43,15 @@ public:
   static const int EMPTY_CELL_SIGN;
   static const size_t CUBE_SIZE;
   static const std::set<int> POSSIBLE_CELL_VALUES;
+  static const std::string OPTION_INVALID_ERR_MSG;
+  static const std::string SIZE_INCOMPATIBALE_ERR_MSG;
 
+  // constructors
   SudokuBoard(size_t size);
-  SudokuBoard(size_t size, std::vector<std::vector<int>> board_values);
+  /**
+   * assuming that board_values is a square (its hight == its width)
+   */
+  SudokuBoard(std::vector<std::vector<int>> board_values);
   // getters
   size_t get_size() const;
   const std::vector<std::vector<int>> &get_board_values() const;
@@ -53,6 +61,9 @@ public:
   // setters
   void set_cell_value(size_t r, size_t c, int val);
   // operators
+  /**
+   * other should be in the same size as this.
+   */
   SudokuBoard &operator=(const SudokuBoard &other);
   // methods
   STATUS_OPTION calc_status() const;
@@ -69,6 +80,10 @@ private:
   std::vector<std::vector<int>> m_board_values;
   std::vector<std::vector<std::set<int>>> m_possible_options;
 
+  // setters
+  void set_cell_options(size_t r, size_t c, std::set<int> cell_options);
+
+  // methods
   /**
    * calculates which values cannot appear in a specific cell, as a result of
    * collapse with another value in the cube.
@@ -89,5 +104,4 @@ private:
    */
   std::set<int> calc_forbidden_values(size_t r, size_t c) const;
   void update_cell_possible_options(size_t r, size_t c);
-  void set_cell_options(size_t r, size_t c, std::set<int> cell_options);
 };
