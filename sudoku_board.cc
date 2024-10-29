@@ -170,3 +170,6 @@ std::set<int> SudokuBoard::get_forbidden_values(size_t r, size_t c) {
   forbidden_values.merge(get_forbidden_values_in_cube(r, c));
   return forbidden_values;
 }
+
+
+
