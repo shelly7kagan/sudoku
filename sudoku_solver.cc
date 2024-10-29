@@ -44,7 +44,7 @@ void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
  * returns the unsolved cell which has the smallest options-set. 
  * insumes that the board is not in a winning state.
  */
-std::tuple<size_t, size_t> SudokuSolver::get_cell_indices_for_guessing(SudokuBoard board) {
+std::tuple<size_t, size_t> SudokuSolver::get_cell_indices_for_guessing(const SudokuBoard& board) {
   // todo: implement as "getting the cell which has the shortest options and
   // doesnt have value"
   size_t min_options_r, min_options_c = 0;

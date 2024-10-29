@@ -10,5 +10,5 @@ private:
   static void solve_board_with_max_guesses(SudokuBoard &board,
                                            int max_guess_amount);
   static std::tuple<size_t, size_t>
-  get_cell_indices_for_guessing(SudokuBoard board);
+  get_cell_indices_for_guessing(const SudokuBoard& board);
 };

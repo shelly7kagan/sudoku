@@ -31,91 +31,91 @@ void TestSudokuBoard::test_get_values_in_cube() {
   SudokuBoard test_board(9);
 
   std::set<int> expected_restult({});
-  assert(test_board.get_forbidden_values_in_cube(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_cube(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 1, 1);
   expected_restult.insert(1);
-  assert(test_board.get_forbidden_values_in_cube(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_cube(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 4, 2);
-  assert(test_board.get_forbidden_values_in_cube(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_cube(0, 0) == expected_restult);
 
   test_board.set_cell_value(5, 1, 3);
-  assert(test_board.get_forbidden_values_in_cube(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_cube(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 0, 4);
   expected_restult.insert(4);
-  assert(test_board.get_forbidden_values_in_cube(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_cube(0, 0) == expected_restult);
 }
 
 void TestSudokuBoard::test_get_values_in_row() {
   SudokuBoard test_board(9);
 
   std::set<int> expected_restult({});
-  assert(test_board.get_forbidden_values_in_row(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_row(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 1, 1);
   expected_restult.insert(1);
-  assert(test_board.get_forbidden_values_in_row(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_row(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 8, 2);
   expected_restult.insert(2);
-  assert(test_board.get_forbidden_values_in_row(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_row(0, 0) == expected_restult);
 
   test_board.set_cell_value(5, 0, 3);
-  assert(test_board.get_forbidden_values_in_row(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_row(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 0, 4);
   expected_restult.insert(4);
-  assert(test_board.get_forbidden_values_in_row(0, 0) == expected_restult);
+  assert(test_board.calc_forbidden_values_in_row(0, 0) == expected_restult);
 }
 
 void TestSudokuBoard::test_get_values_in_col() {
   SudokuBoard test_board(9);
 
   std::set<int> expected_restult({});
-  assert(test_board.get_forbbiden_values_in_col(0, 0) == expected_restult);
+  assert(test_board.calc_forbbiden_values_in_col(0, 0) == expected_restult);
 
   test_board.set_cell_value(1, 0, 1);
   expected_restult.insert(1);
-  assert(test_board.get_forbbiden_values_in_col(0, 0) == expected_restult);
+  assert(test_board.calc_forbbiden_values_in_col(0, 0) == expected_restult);
 
   test_board.set_cell_value(8, 0, 2);
   expected_restult.insert(2);
-  assert(test_board.get_forbbiden_values_in_col(0, 0) == expected_restult);
+  assert(test_board.calc_forbbiden_values_in_col(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 5, 3);
-  assert(test_board.get_forbbiden_values_in_col(0, 0) == expected_restult);
+  assert(test_board.calc_forbbiden_values_in_col(0, 0) == expected_restult);
 
   test_board.set_cell_value(0, 0, 4);
   expected_restult.insert(4);
-  assert(test_board.get_forbbiden_values_in_col(0, 0) == expected_restult);
+  assert(test_board.calc_forbbiden_values_in_col(0, 0) == expected_restult);
 }
 
 void TestSudokuBoard::test_get_forbidden_values() {
   SudokuBoard test_board(9);
 
   std::set<int> expected_restult({});
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 
   test_board.set_cell_value(3, 0, 1);
   expected_restult.insert(1);
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 
   test_board.set_cell_value(5, 0, 2);
   expected_restult.insert(2);
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 
   test_board.set_cell_value(1, 4, 3);
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 
   test_board.set_cell_value(4, 6, 4);
   expected_restult.insert(4);
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 
   test_board.set_cell_value(8, 2, 5);
   expected_restult.insert(5);
-  assert(test_board.get_forbidden_values(4, 2) == expected_restult);
+  assert(test_board.calc_forbidden_values(4, 2) == expected_restult);
 }
 
 void TestSudokuBoard::print_int_set(std::set<int> input) {

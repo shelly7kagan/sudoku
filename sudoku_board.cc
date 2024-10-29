@@ -101,7 +101,7 @@ size_t SudokuBoard::get_missing_cells_amount() const {
   return missing_cells_amount;
 }
 
-bool SudokuBoard::is_empty_cell(size_t r, size_t c) {
+bool SudokuBoard::is_empty_cell(size_t r, size_t c) const {
   return m_board_values[r][c] == EMPTY_CELL_SIGN;
 }
 
@@ -125,7 +125,7 @@ SudokuBoard &SudokuBoard::operator=(const SudokuBoard &other) {
 // ------------------ private methods -------------------
 
 void SudokuBoard::update_cell_possible_options(size_t r, size_t c) {
-  std::set<int> current_forbidden_values = get_forbidden_values(r, c);
+  std::set<int> current_forbidden_values = calc_forbidden_values(r, c);
   std::set<int> old_possible_options = get_cell_options(r, c);
   std::set<int> new_possible_options({});
   std::set_difference(
@@ -135,7 +135,8 @@ void SudokuBoard::update_cell_possible_options(size_t r, size_t c) {
   set_cell_options(r, c, new_possible_options);
 }
 
-std::set<int> SudokuBoard::get_forbidden_values_in_cube(size_t r, size_t c) {
+std::set<int> SudokuBoard::calc_forbidden_values_in_cube(size_t r,
+                                                         size_t c) const {
   std::set<int> values_in_cube{};
   int cube_top_r = r - (r % CUBE_SIZE);
   int cube_left_c = c - (c % CUBE_SIZE);
@@ -148,14 +149,16 @@ std::set<int> SudokuBoard::get_forbidden_values_in_cube(size_t r, size_t c) {
   return values_in_cube;
 }
 
-std::set<int> SudokuBoard::get_forbidden_values_in_row(size_t r, size_t c) {
+std::set<int> SudokuBoard::calc_forbidden_values_in_row(size_t r,
+                                                        size_t c) const {
   std::set<int> values_in_row(m_board_values[r].begin(),
                               m_board_values[r].end());
   values_in_row.erase(EMPTY_CELL_SIGN);
   return values_in_row;
 }
 
-std::set<int> SudokuBoard::get_forbbiden_values_in_col(size_t r, size_t c) {
+std::set<int> SudokuBoard::calc_forbbiden_values_in_col(size_t r,
+                                                        size_t c) const {
   std::set<int> values_in_col{};
   for (size_t i = 0; i < m_size; i++) {
     values_in_col.insert(m_board_values[i][c]);
@@ -164,12 +167,9 @@ std::set<int> SudokuBoard::get_forbbiden_values_in_col(size_t r, size_t c) {
   return values_in_col;
 }
 
-std::set<int> SudokuBoard::get_forbidden_values(size_t r, size_t c) {
-  std::set<int> forbidden_values = get_forbidden_values_in_row(r, c);
-  forbidden_values.merge(get_forbbiden_values_in_col(r, c));
-  forbidden_values.merge(get_forbidden_values_in_cube(r, c));
+std::set<int> SudokuBoard::calc_forbidden_values(size_t r, size_t c) const {
+  std::set<int> forbidden_values = calc_forbidden_values_in_row(r, c);
+  forbidden_values.merge(calc_forbbiden_values_in_col(r, c));
+  forbidden_values.merge(calc_forbidden_values_in_cube(r, c));
   return forbidden_values;
 }
-
-
-

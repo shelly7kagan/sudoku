@@ -31,7 +31,7 @@ public:
                                        std::set<int>::iterator option_iter);
   SudokuBoard &operator=(const SudokuBoard &other);
   size_t get_missing_cells_amount() const;
-  bool is_empty_cell(size_t r, size_t c);
+  bool is_empty_cell(size_t r, size_t c) const;
 
   friend class TestSudokuBoard;
 
@@ -40,11 +40,10 @@ private:
   std::vector<std::vector<int>> m_board_values;
   std::vector<std::vector<std::set<int>>> m_possible_options;
 
-  std::set<int> get_forbidden_values_in_cube(size_t r, size_t c);
-  std::set<int> get_forbidden_values_in_row(size_t r, size_t c);
-  std::set<int> get_forbbiden_values_in_col(size_t r, size_t c);
-  std::set<int> get_forbidden_values(size_t r, size_t c);
+  std::set<int> calc_forbidden_values_in_cube(size_t r, size_t c) const;
+  std::set<int> calc_forbidden_values_in_row(size_t r, size_t c) const;
+  std::set<int> calc_forbbiden_values_in_col(size_t r, size_t c) const;
+  std::set<int> calc_forbidden_values(size_t r, size_t c) const;
   void update_cell_possible_options(size_t r, size_t c);
   void set_cell_options(size_t r, size_t c, std::set<int> cell_options);
-  void empty_options();
 };
