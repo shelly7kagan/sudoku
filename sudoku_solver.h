@@ -24,6 +24,12 @@ private:
                                            int max_guess_amount);
 
   /**
+   * fills place by making a guess, and solves the other part of the board
+   * regulary.
+   */
+  static void make_guess(SudokuBoard &board, int max_guess_amount);
+
+  /**
    * returns the empty cell indices, which has the smallest options-set.
    * assumes that the board is not in a winning state.
    */

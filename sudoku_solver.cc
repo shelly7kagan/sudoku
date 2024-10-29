@@ -14,6 +14,10 @@ void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
     return;
   }
   // TODO: possible to add here logical steps
+  make_guess(board, max_guess_amount);
+}
+
+void SudokuSolver::make_guess(SudokuBoard &board, int max_guess_amount) {
   SudokuBoard board_without_guesses = board;
   auto [guess_cell_r, guess_cell_c] = get_cell_indices_for_guessing(board);
   const std::set<int> &possible_options =
