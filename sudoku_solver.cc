@@ -1,6 +1,7 @@
 #include "sudoku_solver.h"
 
-void SudokuSolver::choose_name(SudokuBoard &board, int max_guess_amount) {
+void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
+                                                int max_guess_amount) {
   if (board.calc_status() != PROG) {
     return;
   }
@@ -16,7 +17,7 @@ void SudokuSolver::choose_name(SudokuBoard &board, int max_guess_amount) {
     auto option = possible_options.begin();
     while (option != possible_options.end()) {
       board.set_cell_value(guess_cell_r, guess_cell_c, *option);
-      choose_name(board, allowed_guess_amount - 1);
+      solve_board_with_max_guesses(board, allowed_guess_amount - 1);
       if (board.calc_status() == WIN) {
         return;
       }
@@ -39,4 +40,3 @@ std::tuple<size_t, size_t> SudokuSolver::get_cell_indices_for_guessing() {
   size_t r, c = 0; // todo: implement
   return {r, c};
 }
-
