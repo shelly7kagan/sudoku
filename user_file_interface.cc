@@ -1,4 +1,4 @@
-#include "user_interface.h"
+#include "user_file_interface.h"
 
 const std::string INPUT_FILE_PATH = "board_input.txt";
 const std::string FILE_ERR_MSG = "Error opening the input file.";

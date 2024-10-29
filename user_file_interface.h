@@ -16,5 +16,10 @@ extern const char BASE_INPUT_CHAR;
 extern const int FAILED;
 extern const int SUCCESS;
 
+/**
+ * reads input from the file INPUT_FILE_PATH, stores it inside a board and
+ * returns it. the input should be in the format - legal values without spaces,
+ * _ for empty space.
+ */
 std::optional<SudokuBoard> readBoard();
 void printBoard(const SudokuBoard &board);
