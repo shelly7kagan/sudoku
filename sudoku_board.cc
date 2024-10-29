@@ -1,7 +1,7 @@
 
 #include "sudoku_board.h"
 
-// define constant
+// constant
 const std::set<int> SudokuBoard::POSSIBLE_CELL_VALUES = {1, 2, 3, 4, 5,
                                                          6, 7, 8, 9};
 const int SudokuBoard::EMPTY_CELL_SIGN = 0;
