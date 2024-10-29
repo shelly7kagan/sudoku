@@ -56,9 +56,8 @@ void TestSudokuSolver::test_solve_board() {
   assert(test_board.get_board_values() == solved_board.get_board_values());
 }
 
-int main(int argc, char const *argv[])
-{
-    TestSudokuSolver::test_solve_board();
-    std::cout << "PASSED ALL" << std::endl;
-    return 0;
+int main(int argc, char const *argv[]) {
+  TestSudokuSolver::test_solve_board();
+  std::cout << "PASSED ALL SudokuSolver Tests" << std::endl;
+  return 0;
 }

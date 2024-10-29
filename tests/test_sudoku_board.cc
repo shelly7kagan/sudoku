@@ -241,6 +241,6 @@ int main(int argc, char const *argv[]) {
   TestSudokuBoard::test_get_forbidden_values();
   TestSudokuBoard::test_get_status();
   TestSudokuBoard::test_update_possible_options();
-  std::cout << "PASSED ALL TESTS" << std::endl;
+  std::cout << "PASSED ALL SudokuBoard TESTS" << std::endl;
   return 0;
 }
