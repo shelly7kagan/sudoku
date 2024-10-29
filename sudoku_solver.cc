@@ -12,7 +12,7 @@ void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
   // todo: possible to add here logical steps
 
   SudokuBoard board_without_guesses = board;
-  auto [guess_cell_r, guess_cell_c] = get_cell_indices_for_guessing();
+  auto [guess_cell_r, guess_cell_c] = get_cell_indices_for_guessing(board);
   const std::set<int> &possible_options =
       board.get_cell_options(guess_cell_r, guess_cell_c);
 
@@ -38,9 +38,24 @@ void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
   // forloop over the options and call this function with max guess amount - 1
 }
 
-std::tuple<size_t, size_t> SudokuSolver::get_cell_indices_for_guessing() {
+/**
+ * returns the unsolved cell which has the smallest options-set. 
+ * insumes that the board is not in a winning state.
+ */
+std::tuple<size_t, size_t> SudokuSolver::get_cell_indices_for_guessing(SudokuBoard board) {
   // todo: implement as "getting the cell which has the shortest options and
   // doesnt have value"
-  size_t r, c = 0; // todo: implement
-  return {r, c};
+  size_t min_options_r, min_options_c = 0;
+  size_t min_options_val = SudokuBoard::POSSIBLE_CELL_VALUES.size();
+  for (size_t i = 0; i < board.get_size(); i++){
+    for (size_t j = 0; j < board.get_size(); j++){
+        if (board.is_empty_cell(i, j) && board.get_cell_options(i, j).size() < min_options_val){
+            min_options_r = i;
+            min_options_c = j;
+            min_options_val = board.get_cell_options(i, j).size();
+        }
+    }
+  }
+  return {min_options_r, min_options_c};
 }
+

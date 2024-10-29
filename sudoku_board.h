@@ -27,11 +27,11 @@ public:
   STATUS_OPTION calc_cell_status(size_t r, size_t c) const;
   void set_cell_value(size_t r, size_t c, int val);
   void update_possible_options();
-  const std::set<int>::iterator &
-  erase_option(size_t guess_cell_r, size_t guess_cell_c,
-               std::set<int>::iterator option_iter);
+  std::set<int>::iterator erase_option(size_t guess_cell_r, size_t guess_cell_c,
+                                       std::set<int>::iterator option_iter);
   SudokuBoard &operator=(const SudokuBoard &other);
   size_t get_missing_cells_amount() const;
+  bool is_empty_cell(size_t r, size_t c);
 
   friend class TestSudokuBoard;
 

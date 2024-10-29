@@ -86,7 +86,7 @@ void SudokuBoard::update_possible_options() {
   }
 }
 
-const std::set<int>::iterator &
+std::set<int>::iterator
 SudokuBoard::erase_option(size_t guess_cell_r, size_t guess_cell_c,
                           std::set<int>::iterator option_iter) {
   return m_possible_options[guess_cell_r][guess_cell_c].erase(option_iter);
@@ -99,6 +99,10 @@ size_t SudokuBoard::get_missing_cells_amount() const {
                                   m_board_values[i].end(), EMPTY_CELL_SIGN);
   }
   return missing_cells_amount;
+}
+
+bool SudokuBoard::is_empty_cell(size_t r, size_t c) {
+  return m_board_values[r][c] == EMPTY_CELL_SIGN;
 }
 
 /**
