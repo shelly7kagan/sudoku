@@ -16,7 +16,7 @@ SudokuBoard::SudokuBoard(size_t size)
 // todo: add a check if the given array is in a proper size
 SudokuBoard::SudokuBoard(size_t size,
                          std::vector<std::vector<int>> board_values)
-    : m_size(size), m_board_values(board_values),
+    : m_size(size), m_board_values(std::move(board_values)),
       m_possible_options(
           size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {
   update_possible_options();
