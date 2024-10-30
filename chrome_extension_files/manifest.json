@@ -1,10 +1,19 @@
 {
     "manifest_version": 3,
     "name": "Sudoku Solver",
-    "description": "solves the sudoku on the site 'sudoko.com'",
+    "description": "solves the sudoku on the site 'https://east.websudoku.com/'",
     "version": "1.0",
     "action": {
-        "default_popup": "try.html",
         "default_icon": "sudoku.png"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://east.websudoku.com/*"
+            ],
+            "js": [
+                "sudoku_solver.js"
+            ]
+        }
+    ]
 }
