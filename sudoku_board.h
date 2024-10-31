@@ -84,6 +84,7 @@ private:
   void set_cell_options(size_t r, size_t c, std::set<int> cell_options);
 
   // methods
+  void copyValues(const SudokuBoard &other);
   /**
    * calculates which values cannot appear in a specific cell, as a result of
    * collapse with another value in the cube.
@@ -104,4 +105,8 @@ private:
    */
   std::set<int> calc_forbidden_values(size_t r, size_t c) const;
   void update_cell_possible_options(size_t r, size_t c);
+  /**
+   * empty the option set for every value that was filled in the board
+   */
+  void empty_options_for_exiting_values();
 };

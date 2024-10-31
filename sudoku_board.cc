@@ -17,12 +17,13 @@ SudokuBoard::SudokuBoard(size_t size)
     : m_size(size),
       m_board_values(size, std::vector<int>(size, EMPTY_CELL_SIGN)),
       m_possible_options(
-          size, std::vector(size, std::set<int>(POSSIBLE_CELL_VALUES))) {}
+          size, std::vector<std::set<int>>(size, std::set<int>(POSSIBLE_CELL_VALUES))) {}
 
 SudokuBoard::SudokuBoard(std::vector<std::vector<int>> board_values)
     : m_size(board_values.size()), m_board_values(std::move(board_values)),
       m_possible_options(
-          m_size, std::vector(m_size, std::set<int>(POSSIBLE_CELL_VALUES))) {
+          m_size, std::vector<std::set<int>>(m_size, std::set<int>(POSSIBLE_CELL_VALUES))) {
+  empty_options_for_exiting_values();
   update_possible_options();
 }
 
@@ -76,10 +77,11 @@ SudokuBoard &SudokuBoard::operator=(const SudokuBoard &other) {
   }
   if (this != &other) {
     m_possible_options = other.m_possible_options;
-    m_board_values = m_board_values;
+    m_board_values = other.m_board_values;
   }
   return *this;
 }
+
 
 // methods
 
@@ -178,4 +180,17 @@ void SudokuBoard::update_cell_possible_options(size_t r, size_t c) {
       current_forbidden_values.begin(), current_forbidden_values.end(),
       inserter(new_possible_options, new_possible_options.begin()));
   set_cell_options(r, c, new_possible_options);
+}
+
+void SudokuBoard::empty_options_for_exiting_values(){
+  for (size_t i = 0; i < get_size(); i++)
+  {
+    for (size_t j = 0; j < get_size(); j++)
+    {
+      if (m_board_values[i][j] != EMPTY_CELL_SIGN){
+        set_cell_options(i, j, std::set<int>({}));
+      }
+    }
+    
+  }
 }
