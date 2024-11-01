@@ -1,4 +1,5 @@
 #include "sudoku_solver.h"
+#include "user_file_interface.h"
 
 std::optional<SudokuBoard> SudokuSolver::solve_board(SudokuBoard &board) {
   solve_board_with_max_guesses(board, board.get_missing_cells_amount());
@@ -13,7 +14,9 @@ void SudokuSolver::solve_board_with_max_guesses(SudokuBoard &board,
   if (board.calc_status() != PROG) {
     return;
   }
-  // TODO: possible to add here logical steps
+  // TODO: possible to add more here logical steps
+  fill_trivial_cells(board);
+
   make_guess(board, max_guess_amount);
 }
 
@@ -47,7 +50,7 @@ void SudokuSolver::make_guess(SudokuBoard &board, int max_guess_amount) {
 
 std::tuple<size_t, size_t>
 SudokuSolver::get_cell_indices_for_guessing(const SudokuBoard &board) {
-  size_t min_options_r, min_options_c = 0;
+  size_t min_options_r = 0, min_options_c = 0;
   size_t min_options_val = SudokuBoard::POSSIBLE_CELL_VALUES.size();
   for (size_t i = 0; i < board.get_size(); i++) {
     for (size_t j = 0; j < board.get_size(); j++) {
@@ -59,5 +62,19 @@ SudokuSolver::get_cell_indices_for_guessing(const SudokuBoard &board) {
       }
     }
   }
+
   return {min_options_r, min_options_c};
+}
+
+void SudokuSolver::fill_trivial_cells(SudokuBoard &board) {
+  for (size_t i = 0; i < board.get_size(); i++) {
+    for (size_t j = 0; j < board.get_size(); j++) {
+      const std::set<int> &current_cell_options = board.get_cell_options(i, j);
+      if (current_cell_options.size() == 1) {
+        board.set_cell_value(i, j, *current_cell_options.begin());
+        i = 0;
+        j = 0;
+      }
+    }
+  }
 }

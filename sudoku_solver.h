@@ -35,4 +35,9 @@ private:
    */
   static std::tuple<size_t, size_t>
   get_cell_indices_for_guessing(const SudokuBoard &board);
+
+  /**
+   * fills cells which have only one option
+   */
+  static void fill_trivial_cells(SudokuBoard &board);
 };

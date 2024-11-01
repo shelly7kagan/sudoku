@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "Sudoku Solver",
+    "description": "solves the sudoku on the site 'https://east.websudoku.com/'",
+    "version": "1.0",
+    "action": {
+        "default_icon": "sudoku.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://east.websudoku.com/*"
+            ],
+            "js": [
+                "solver_wrapper.js"
+            ],
+            "type": "module"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "solving_algorithm.js",
+                "solving_algorithm.wasm"
+            ],
+            "matches": [
+                "https://east.websudoku.com/*"
+            ],
+            "type": "module"
+        }
+    ]
+}
