@@ -12,8 +12,21 @@
                 "https://east.websudoku.com/*"
             ],
             "js": [
-                "sudoku_solver.js"
-            ]
+                "solver_wrapper.js"
+            ],
+            "type": "module"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "solving_algorithm.js",
+                "solving_algorithm.wasm"
+            ],
+            "matches": [
+                "https://east.websudoku.com/*"
+            ],
+            "type": "module"
         }
     ]
 }
